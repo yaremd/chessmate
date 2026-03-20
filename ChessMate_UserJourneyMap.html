@@ -60,7 +60,7 @@ body::before{content:'';position:fixed;inset:0;
 /* JOURNEY TABLE */
 .j-scroll{overflow-x:auto;padding-bottom:12px}
 .j-outer{display:grid;grid-template-columns:116px 1fr;min-width:1480px}
-.row-labels{display:grid;grid-template-rows:52px 200px 100px 140px 138px;padding-top:52px}
+.row-labels{display:grid;grid-template-rows:52px 200px 100px 140px 138px}
 .rl{display:flex;align-items:center;justify-content:flex-end;padding-right:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--border);text-align:right;border-bottom:1px solid var(--border)}
 .rl:last-child{border-bottom:none}
 .j-grid{display:grid;grid-template-columns:repeat(8,1fr)}
@@ -164,95 +164,7 @@ body::before{content:'';position:fixed;inset:0;
     <div class="curve-title" id="ctitle">Child Beginner — Emotional State</div>
     <div class="curve-sub">From first contact to long-term engagement — highs, friction points, and the AHA moment</div>
 
-    <svg id="cv1" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#7c4dff"/><stop offset="40%" stop-color="#00e5a0"/>
-          <stop offset="65%" stop-color="#ffb300"/><stop offset="100%" stop-color="#7c4dff"/>
-        </linearGradient>
-        <linearGradient id="lf1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#7c4dff" stop-opacity=".18"/>
-          <stop offset="100%" stop-color="#7c4dff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
-      <path d="M0,100 C60,85 100,65 112,58 C140,46 165,42 200,54 C240,68 280,108 320,93 C360,78 385,38 450,28 C505,20 545,68 590,98 C635,122 660,148 715,108 C765,72 815,33 900,22 L900,180 L0,180 Z" fill="url(#lf1)"/>
-      <path d="M0,100 C60,85 100,65 112,58 C140,46 165,42 200,54 C240,68 280,108 320,93 C360,78 385,38 450,28 C505,20 545,68 590,98 C635,122 660,148 715,108 C765,72 815,33 900,22" fill="none" stroke="url(#lg1)" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="56" cy="80" r="5" fill="#7c4dff"/>
-      <circle cx="168" cy="46" r="5" fill="#5c8fff"/>
-      <circle cx="225" cy="58" r="5" fill="#00b4d8"/>
-      <circle cx="338" cy="90" r="5" fill="#00e5a0"/>
-      <circle cx="450" cy="28" r="7" fill="#7bd450" stroke="#080c14" stroke-width="2"/>
-      <circle cx="562" cy="96" r="5" fill="#ffb300"/>
-      <circle cx="675" cy="140" r="5" fill="#ff7043"/>
-      <circle cx="788" cy="48" r="5" fill="#7c4dff"/>
-      <rect x="410" y="8" width="82" height="17" rx="4" fill="rgba(123,212,80,.15)" stroke="rgba(123,212,80,.35)" stroke-width="1"/>
-      <text x="451" y="20" text-anchor="middle" fill="#7bd450" font-size="10" font-family="DM Sans" font-weight="600">✦ AHA moment</text>
-      <rect x="634" y="143" width="70" height="17" rx="4" fill="rgba(255,112,67,.15)" stroke="rgba(255,112,67,.35)" stroke-width="1"/>
-      <text x="669" y="155" text-anchor="middle" fill="#ff7043" font-size="10" font-family="DM Sans" font-weight="600">⚡ Friction</text>
-    </svg>
-
-    <svg id="cv2" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#00b4d8"/><stop offset="45%" stop-color="#00e5a0"/>
-          <stop offset="75%" stop-color="#ff4d6d"/><stop offset="100%" stop-color="#00b4d8"/>
-        </linearGradient>
-        <linearGradient id="lf2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#00b4d8" stop-opacity=".18"/>
-          <stop offset="100%" stop-color="#00b4d8" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
-      <path d="M0,120 C50,115 90,105 112,95 C145,80 175,65 220,55 C265,44 300,90 330,108 C360,90 390,42 450,30 C500,22 545,72 588,105 C628,128 660,155 720,118 C772,82 825,38 900,28 L900,180 L0,180 Z" fill="url(#lf2)"/>
-      <path d="M0,120 C50,115 90,105 112,95 C145,80 175,65 220,55 C265,44 300,90 330,108 C360,90 390,42 450,30 C500,22 545,72 588,105 C628,128 660,155 720,118 C772,82 825,38 900,28" fill="none" stroke="url(#lg2)" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="56"  cy="116" r="5" fill="#00b4d8"/>
-      <circle cx="168" cy="88"  r="5" fill="#5c8fff"/>
-      <circle cx="225" cy="54"  r="5" fill="#00b4d8"/>
-      <circle cx="338" cy="105" r="5" fill="#7bd450"/>
-      <circle cx="450" cy="30"  r="7" fill="#00e5a0" stroke="#080c14" stroke-width="2"/>
-      <circle cx="562" cy="102" r="5" fill="#ffb300"/>
-      <circle cx="675" cy="148" r="5" fill="#ff4d6d"/>
-      <circle cx="788" cy="42"  r="5" fill="#00b4d8"/>
-      <rect x="410" y="8" width="82" height="17" rx="4" fill="rgba(0,229,160,.15)" stroke="rgba(0,229,160,.35)" stroke-width="1"/>
-      <text x="451" y="20" text-anchor="middle" fill="#00e5a0" font-size="10" font-family="DM Sans" font-weight="600">✦ AHA moment</text>
-      <rect x="636" y="150" width="70" height="17" rx="4" fill="rgba(255,77,109,.15)" stroke="rgba(255,77,109,.35)" stroke-width="1"/>
-      <text x="671" y="162" text-anchor="middle" fill="#ff8fab" font-size="10" font-family="DM Sans" font-weight="600">⚡ Friction</text>
-    </svg>
-
-    <svg id="cv3" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="lg3" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#ffb300"/><stop offset="30%" stop-color="#ff7043"/>
-          <stop offset="55%" stop-color="#00e5a0"/><stop offset="100%" stop-color="#7c4dff"/>
-        </linearGradient>
-        <linearGradient id="lf3" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffb300" stop-opacity=".18"/>
-          <stop offset="100%" stop-color="#ffb300" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
-      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
-      <path d="M0,90 C45,88 85,82 112,75 C145,65 172,105 210,125 C248,145 280,118 330,95 C370,76 400,38 460,32 C510,26 545,58 590,78 C630,95 658,72 715,48 C762,28 820,25 900,22 L900,180 L0,180 Z" fill="url(#lf3)"/>
-      <path d="M0,90 C45,88 85,82 112,75 C145,65 172,105 210,125 C248,145 280,118 330,95 C370,76 400,38 460,32 C510,26 545,58 590,78 C630,95 658,72 715,48 C762,28 820,25 900,22" fill="none" stroke="url(#lg3)" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="56"  cy="88"  r="5" fill="#ffb300"/>
-      <circle cx="168" cy="72"  r="5" fill="#ff9f43"/>
-      <circle cx="225" cy="118" r="5" fill="#ff7043"/>
-      <circle cx="338" cy="92"  r="5" fill="#7bd450"/>
-      <circle cx="460" cy="32"  r="7" fill="#00e5a0" stroke="#080c14" stroke-width="2"/>
-      <circle cx="562" cy="76"  r="5" fill="#ffb300"/>
-      <circle cx="675" cy="52"  r="5" fill="#7c4dff"/>
-      <circle cx="788" cy="26"  r="5" fill="#b47dff"/>
-      <rect x="420" y="8" width="82" height="17" rx="4" fill="rgba(0,229,160,.15)" stroke="rgba(0,229,160,.35)" stroke-width="1"/>
-      <text x="461" y="20" text-anchor="middle" fill="#00e5a0" font-size="10" font-family="DM Sans" font-weight="600">✦ Child loves it</text>
-      <rect x="183" y="128" width="78" height="17" rx="4" fill="rgba(255,112,67,.15)" stroke="rgba(255,112,67,.35)" stroke-width="1"/>
-      <text x="222" y="140" text-anchor="middle" fill="#ff7043" font-size="10" font-family="DM Sans" font-weight="600">⚡ Setup pain</text>
-    </svg>
+    <svg id="cvdyn" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none" style="display:block;width:100%"></svg>
 
     <div class="curve-labels" style="margin-top:10px">
       <div class="cl">Awareness</div><div class="cl">Download</div>
@@ -459,6 +371,111 @@ const P = {
   }
 };
 
+const PERSONA_GRAD = {
+  1:[['0%','#7c4dff'],['40%','#00e5a0'],['65%','#ffb300'],['100%','#7c4dff']],
+  2:[['0%','#00b4d8'],['45%','#00e5a0'],['75%','#ff4d6d'],['100%','#00b4d8']],
+  3:[['0%','#ffb300'],['30%','#ff7043'],['55%','#00e5a0'],['100%','#7c4dff']]
+};
+const PERSONA_FILL = {1:'#7c4dff', 2:'#00b4d8', 3:'#ffb300'};
+const STAGE_XS = [56.25,168.75,281.25,393.75,506.25,618.75,731.25,843.75];
+
+function catmullRom(pts) {
+  const n = pts.length;
+  let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+  for (let i = 0; i < n-1; i++) {
+    const p0=pts[Math.max(0,i-1)], p1=pts[i], p2=pts[i+1], p3=pts[Math.min(n-1,i+2)];
+    const c1x=p1.x+(p2.x-p0.x)/6, c1y=p1.y+(p2.y-p0.y)/6;
+    const c2x=p2.x-(p3.x-p1.x)/6, c2y=p2.y-(p3.y-p1.y)/6;
+    d += ` C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+  }
+  return d;
+}
+
+function mkSvg(tag) { return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+
+function drawCurve(pid) {
+  const svg = document.getElementById('cvdyn');
+  svg.innerHTML = '';
+  const d = P[pid];
+  const pts = d.stages.map((s,i) => ({x:STAGE_XS[i], y:+(150-(s.emo.p/100)*120).toFixed(1)}));
+  const fillColor = PERSONA_FILL[pid];
+
+  // — defs: line gradient + fill gradient —
+  const defs = mkSvg('defs');
+  const lg = mkSvg('linearGradient');
+  lg.id='lgd'; lg.setAttribute('x1','0'); lg.setAttribute('y1','0'); lg.setAttribute('x2','1'); lg.setAttribute('y2','0');
+  PERSONA_GRAD[pid].forEach(([off,col]) => {
+    const s=mkSvg('stop'); s.setAttribute('offset',off); s.setAttribute('stop-color',col); lg.appendChild(s);
+  });
+  const lf = mkSvg('linearGradient');
+  lf.id='lfd'; lf.setAttribute('x1','0'); lf.setAttribute('y1','0'); lf.setAttribute('x2','0'); lf.setAttribute('y2','1');
+  const fs1=mkSvg('stop'); fs1.setAttribute('offset','0%'); fs1.setAttribute('stop-color',fillColor); fs1.setAttribute('stop-opacity','0.18');
+  const fs2=mkSvg('stop'); fs2.setAttribute('offset','100%'); fs2.setAttribute('stop-color',fillColor); fs2.setAttribute('stop-opacity','0');
+  lf.appendChild(fs1); lf.appendChild(fs2);
+  defs.appendChild(lg); defs.appendChild(lf); svg.appendChild(defs);
+
+  // — grid lines —
+  [30,90,150].forEach(y => {
+    const l=mkSvg('line'); l.setAttribute('x1','0'); l.setAttribute('y1',y); l.setAttribute('x2','900'); l.setAttribute('y2',y);
+    l.setAttribute('stroke','#1e2d45'); l.setAttribute('stroke-width','1'); svg.appendChild(l);
+  });
+
+  const pathStr = catmullRom(pts);
+  const last = pts[pts.length-1], first = pts[0];
+
+  // — fill area —
+  const fp=mkSvg('path');
+  fp.setAttribute('d', pathStr+` L${last.x},180 L${first.x},180 Z`);
+  fp.setAttribute('fill','url(#lfd)'); svg.appendChild(fp);
+
+  // — curve line —
+  const lp=mkSvg('path');
+  lp.setAttribute('d', pathStr); lp.setAttribute('fill','none');
+  lp.setAttribute('stroke','url(#lgd)'); lp.setAttribute('stroke-width','3');
+  lp.setAttribute('stroke-linecap','round'); svg.appendChild(lp);
+
+  // — find AHA (global max) and Friction (global min) —
+  const maxP = Math.max(...d.stages.map(s=>s.emo.p));
+  const minP = Math.min(...d.stages.map(s=>s.emo.p));
+  const ahaIdx = d.stages.findIndex(s=>s.emo.p===maxP);
+  const frIdx  = d.stages.findIndex(s=>s.emo.p===minP);
+
+  // — dots and annotations —
+  pts.forEach((pt,i) => {
+    const isAha   = (i===ahaIdx);
+    const isFrict = (i===frIdx);
+    const c=mkSvg('circle');
+    c.setAttribute('cx', pt.x); c.setAttribute('cy', pt.y);
+    c.setAttribute('r', isAha?'7':'5'); c.setAttribute('fill', SC[i]);
+    if (isAha) { c.setAttribute('stroke','#080c14'); c.setAttribute('stroke-width','2'); }
+    svg.appendChild(c);
+
+    if (isAha) {
+      const rx = Math.max(2, Math.min(pt.x-41, 816));
+      const ry = Math.max(2, pt.y-22);
+      const r=mkSvg('rect'); r.setAttribute('x',rx); r.setAttribute('y',ry);
+      r.setAttribute('width','82'); r.setAttribute('height','17'); r.setAttribute('rx','4');
+      r.setAttribute('fill','rgba(123,212,80,.15)'); r.setAttribute('stroke','rgba(123,212,80,.35)'); r.setAttribute('stroke-width','1'); svg.appendChild(r);
+      const t=mkSvg('text'); t.setAttribute('x',rx+41); t.setAttribute('y',ry+12);
+      t.setAttribute('text-anchor','middle'); t.setAttribute('fill','#7bd450');
+      t.setAttribute('font-size','10'); t.setAttribute('font-family','DM Sans'); t.setAttribute('font-weight','600');
+      t.textContent = pid===3 ? '✦ Child loves it' : '✦ AHA moment'; svg.appendChild(t);
+    }
+
+    if (isFrict) {
+      const rx = Math.max(2, Math.min(pt.x-35, 828));
+      const ry = Math.min(pt.y+8, 161);
+      const r=mkSvg('rect'); r.setAttribute('x',rx); r.setAttribute('y',ry);
+      r.setAttribute('width','70'); r.setAttribute('height','17'); r.setAttribute('rx','4');
+      r.setAttribute('fill','rgba(255,112,67,.15)'); r.setAttribute('stroke','rgba(255,112,67,.35)'); r.setAttribute('stroke-width','1'); svg.appendChild(r);
+      const t=mkSvg('text'); t.setAttribute('x',rx+35); t.setAttribute('y',ry+12);
+      t.setAttribute('text-anchor','middle'); t.setAttribute('fill','#ff7043');
+      t.setAttribute('font-size','10'); t.setAttribute('font-family','DM Sans'); t.setAttribute('font-weight','600');
+      t.textContent = pid===3 ? '⚡ Setup pain' : '⚡ Friction'; svg.appendChild(t);
+    }
+  });
+}
+
 let current = 0;
 
 function go(pid) {
@@ -471,10 +488,8 @@ function go(pid) {
     c.className = 'p-card' + (i === pid ? ' active-'+i : '');
   });
 
-  // swap curves — use style.display directly; className toggling on inline SVGs is unreliable
-  ['cv1','cv2','cv3'].forEach((id,i) => {
-    document.getElementById(id).style.display = (i+1 === pid ? 'block' : 'none');
-  });
+  // redraw dynamic curve for selected persona
+  drawCurve(pid);
 
   const d = P[pid];
   document.getElementById('ctitle').textContent = d.ctitle;
