@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChessMate — User Journey Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080c14; --surface:#0e1520; --surface2:#141d2e; --border:#1e2d45;
+  --accent:#7c4dff; --accent2:#b47dff; --glow:rgba(124,77,255,.25);
+  --green:#00e5a0; --amber:#ffb300; --red:#ff4d6d;
+  --text:#e8edf5; --muted:#6b7d96; --dim:#3d5068;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;opacity:.22;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:48px 32px 80px}
+
+/* HEADER */
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.brand-icon{width:34px;height:34px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 24px var(--glow)}
+.brand-name{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.5px}
+.doc-title{font-family:'Syne',sans-serif;font-weight:800;font-size:44px;letter-spacing:-2.5px;line-height:1}
+.doc-title span{color:var(--accent2)}
+.doc-meta{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+.tag-meta{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:4px 10px}
+
+/* SECTION LABEL */
+.section-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;display:flex;align-items:center;gap:10px;margin-top:40px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* PERSONA CARDS */
+.persona-row{display:flex;gap:12px;flex-wrap:wrap}
+.p-card{background:var(--surface);border:2px solid var(--border);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;flex:1;min-width:220px;user-select:none}
+.p-card:hover{background:var(--surface2)}
+.p-card.active-1{border-color:#7c4dff;background:var(--surface2);box-shadow:0 0 24px rgba(124,77,255,.2)}
+.p-card.active-2{border-color:#00b4d8;background:var(--surface2);box-shadow:0 0 24px rgba(0,180,216,.2)}
+.p-card.active-3{border-color:#ffb300;background:var(--surface2);box-shadow:0 0 24px rgba(255,179,0,.2)}
+.p-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.av1{background:rgba(124,77,255,.18)} .av2{background:rgba(0,180,216,.18)} .av3{background:rgba(255,179,0,.18)}
+.p-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;line-height:1.2}
+.p-desc{font-size:12px;color:var(--muted);margin-top:3px}
+.p-badge{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:20px;flex-shrink:0}
+.pb1{background:rgba(124,77,255,.15);color:var(--accent2)}
+.pb2{background:rgba(0,180,216,.15);color:#00b4d8}
+.pb3{background:rgba(255,179,0,.15);color:var(--amber)}
+
+/* EMOTION CURVE */
+.curve-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px}
+.curve-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:4px}
+.curve-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+.curve-labels{display:flex;justify-content:space-between;margin-top:10px}
+.cl{font-size:11px;color:var(--dim);text-align:center;flex:1;font-weight:500}
+.curve-svg{display:none;width:100%}
+.curve-svg.on{display:block}
+
+/* JOURNEY TABLE */
+.j-scroll{overflow-x:auto;padding-bottom:12px}
+.j-outer{display:grid;grid-template-columns:116px 1fr;min-width:1480px}
+.row-labels{display:grid;grid-template-rows:52px 190px 100px 130px 128px;padding-top:52px}
+.rl{display:flex;align-items:center;justify-content:flex-end;padding-right:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--border);text-align:right;border-bottom:1px solid var(--border)}
+.rl:last-child{border-bottom:none}
+.j-grid{display:grid;grid-template-columns:repeat(8,1fr)}
+.s-col{border-right:1px solid var(--border)}
+.s-col:last-child{border-right:none}
+
+/* stage header */
+.s-head{position:relative;padding:13px 14px;border-bottom:1px solid var(--border);min-height:52px}
+.color-bar{position:absolute;bottom:0;left:0;right:0;height:2px}
+.s-num{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--dim);margin-bottom:3px}
+.s-name{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);line-height:1.25;padding-right:22px}
+.s-icon{position:absolute;right:11px;top:12px;font-size:15px;opacity:.55}
+
+/* body rows */
+.s-row{padding:11px 13px;border-bottom:1px solid var(--border);font-size:12px;line-height:1.5;color:var(--muted)}
+.s-row:last-child{border-bottom:none}
+.s-row.actions{min-height:190px}
+.s-row.emotion{min-height:100px;padding:8px 13px}
+.s-row.pain{min-height:130px;background:rgba(255,77,109,.04)}
+.s-row.opps{min-height:128px;background:rgba(0,229,160,.04)}
+.act{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.dot{width:5px;height:5px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.emo-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:84px;gap:5px}
+.emo-emoji{font-size:24px;line-height:1}
+.emo-label{font-size:11px;font-weight:500;text-align:center}
+.emo-bar{width:100%;height:4px;border-radius:2px;background:var(--border);margin-top:4px;overflow:hidden}
+.emo-fill{height:100%;border-radius:2px}
+.chip{display:inline-flex;align-items:flex-start;gap:5px;font-size:11px;padding:3px 8px;border-radius:4px;margin-bottom:5px;line-height:1.5}
+.chip-p{background:rgba(255,77,109,.11);color:#ff8fab;border:1px solid rgba(255,77,109,.2)}
+.chip-o{background:rgba(0,229,160,.09);color:var(--green);border:1px solid rgba(0,229,160,.2)}
+
+/* OPP CARDS */
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.opp-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:all .2s;position:relative;overflow:hidden}
+.opp-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.opp-bar{position:absolute;top:0;left:0;right:0;height:2px}
+.opp-pri{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.opp-pri.crit{color:var(--accent2)} .opp-pri.high{color:var(--green)} .opp-pri.med{color:var(--amber)}
+.opp-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:7px;line-height:1.3}
+.opp-desc{font-size:12.5px;color:var(--muted);line-height:1.55}
+.opp-stage{margin-top:11px;font-size:11px;color:var(--dim)}
+
+.divider{height:1px;background:var(--border);margin:40px 0}
+::-webkit-scrollbar{height:4px;width:4px}
+::-webkit-scrollbar-track{background:var(--surface)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.fade{animation:fadeUp .4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div style="margin-bottom:40px" class="fade">
+    <div class="brand">
+      <div class="brand-icon">♟</div>
+      <span class="brand-name">ChessMate</span>
+    </div>
+    <div class="doc-title">User Journey <span>Map</span></div>
+    <div class="doc-meta">
+      <span class="tag-meta">Product Document</span>
+      <span class="tag-meta">MVP Phase</span>
+      <span class="tag-meta">March 2026</span>
+      <span class="tag-meta">3 Personas</span>
+    </div>
+  </div>
+
+  <!-- PERSONA SWITCHER -->
+  <div class="section-label">Select Persona</div>
+  <div class="persona-row fade" style="margin-bottom:36px">
+    <div class="p-card" id="pc1" onclick="go(1)">
+      <div class="p-avatar av1">👦</div>
+      <div>
+        <div class="p-name">Child, 7–12 y.o.</div>
+        <div class="p-desc">Parents want development. Child wants to play.</div>
+      </div>
+      <div class="p-badge pb1">Core</div>
+    </div>
+    <div class="p-card" id="pc2" onclick="go(2)">
+      <div class="p-avatar av2">🧑</div>
+      <div>
+        <div class="p-name">Adult Beginner</div>
+        <div class="p-desc">Always wanted to learn. Never got around to it.</div>
+      </div>
+      <div class="p-badge pb2">Growth</div>
+    </div>
+    <div class="p-card" id="pc3" onclick="go(3)">
+      <div class="p-avatar av3">👨‍👩‍👧</div>
+      <div>
+        <div class="p-name">School Parent</div>
+        <div class="p-desc">Looking for an app or school for their child.</div>
+      </div>
+      <div class="p-badge pb3">B2C→B2B</div>
+    </div>
+  </div>
+
+  <!-- EMOTION CURVE -->
+  <div class="section-label">Emotional Journey Curve</div>
+  <div class="curve-box fade">
+    <div class="curve-title" id="ctitle">Child Beginner — Emotional State</div>
+    <div class="curve-sub">From first contact to long-term engagement — highs, friction points, and the AHA moment</div>
+
+    <svg id="cv1" class="curve-svg on" viewBox="0 0 900 180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#7c4dff"/><stop offset="40%" stop-color="#00e5a0"/>
+          <stop offset="65%" stop-color="#ffb300"/><stop offset="100%" stop-color="#7c4dff"/>
+        </linearGradient>
+        <linearGradient id="lf1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7c4dff" stop-opacity=".18"/>
+          <stop offset="100%" stop-color="#7c4dff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
+      <path d="M0,100 C60,85 100,65 112,58 C140,46 165,42 200,54 C240,68 280,108 320,93 C360,78 385,38 450,28 C505,20 545,68 590,98 C635,122 660,148 715,108 C765,72 815,33 900,22 L900,180 L0,180 Z" fill="url(#lf1)"/>
+      <path d="M0,100 C60,85 100,65 112,58 C140,46 165,42 200,54 C240,68 280,108 320,93 C360,78 385,38 450,28 C505,20 545,68 590,98 C635,122 660,148 715,108 C765,72 815,33 900,22" fill="none" stroke="url(#lg1)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="56" cy="80" r="5" fill="#7c4dff"/>
+      <circle cx="168" cy="46" r="5" fill="#5c8fff"/>
+      <circle cx="225" cy="58" r="5" fill="#00b4d8"/>
+      <circle cx="338" cy="90" r="5" fill="#00e5a0"/>
+      <circle cx="450" cy="28" r="7" fill="#7bd450" stroke="#080c14" stroke-width="2"/>
+      <circle cx="562" cy="96" r="5" fill="#ffb300"/>
+      <circle cx="675" cy="140" r="5" fill="#ff7043"/>
+      <circle cx="788" cy="48" r="5" fill="#7c4dff"/>
+      <rect x="410" y="8" width="82" height="17" rx="4" fill="rgba(123,212,80,.15)" stroke="rgba(123,212,80,.35)" stroke-width="1"/>
+      <text x="451" y="20" text-anchor="middle" fill="#7bd450" font-size="10" font-family="DM Sans" font-weight="600">✦ AHA moment</text>
+      <rect x="634" y="143" width="70" height="17" rx="4" fill="rgba(255,112,67,.15)" stroke="rgba(255,112,67,.35)" stroke-width="1"/>
+      <text x="669" y="155" text-anchor="middle" fill="#ff7043" font-size="10" font-family="DM Sans" font-weight="600">⚡ Friction</text>
+    </svg>
+
+    <svg id="cv2" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00b4d8"/><stop offset="45%" stop-color="#00e5a0"/>
+          <stop offset="75%" stop-color="#ff4d6d"/><stop offset="100%" stop-color="#00b4d8"/>
+        </linearGradient>
+        <linearGradient id="lf2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00b4d8" stop-opacity=".18"/>
+          <stop offset="100%" stop-color="#00b4d8" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
+      <path d="M0,120 C50,115 90,105 112,95 C145,80 175,65 220,55 C265,44 300,90 330,108 C360,90 390,42 450,30 C500,22 545,72 588,105 C628,128 660,155 720,118 C772,82 825,38 900,28 L900,180 L0,180 Z" fill="url(#lf2)"/>
+      <path d="M0,120 C50,115 90,105 112,95 C145,80 175,65 220,55 C265,44 300,90 330,108 C360,90 390,42 450,30 C500,22 545,72 588,105 C628,128 660,155 720,118 C772,82 825,38 900,28" fill="none" stroke="url(#lg2)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="56"  cy="116" r="5" fill="#00b4d8"/>
+      <circle cx="168" cy="88"  r="5" fill="#5c8fff"/>
+      <circle cx="225" cy="54"  r="5" fill="#00b4d8"/>
+      <circle cx="338" cy="105" r="5" fill="#7bd450"/>
+      <circle cx="450" cy="30"  r="7" fill="#00e5a0" stroke="#080c14" stroke-width="2"/>
+      <circle cx="562" cy="102" r="5" fill="#ffb300"/>
+      <circle cx="675" cy="148" r="5" fill="#ff4d6d"/>
+      <circle cx="788" cy="42"  r="5" fill="#00b4d8"/>
+      <rect x="410" y="8" width="82" height="17" rx="4" fill="rgba(0,229,160,.15)" stroke="rgba(0,229,160,.35)" stroke-width="1"/>
+      <text x="451" y="20" text-anchor="middle" fill="#00e5a0" font-size="10" font-family="DM Sans" font-weight="600">✦ AHA moment</text>
+      <rect x="636" y="150" width="70" height="17" rx="4" fill="rgba(255,77,109,.15)" stroke="rgba(255,77,109,.35)" stroke-width="1"/>
+      <text x="671" y="162" text-anchor="middle" fill="#ff8fab" font-size="10" font-family="DM Sans" font-weight="600">⚡ Friction</text>
+    </svg>
+
+    <svg id="cv3" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="lg3" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ffb300"/><stop offset="30%" stop-color="#ff7043"/>
+          <stop offset="55%" stop-color="#00e5a0"/><stop offset="100%" stop-color="#7c4dff"/>
+        </linearGradient>
+        <linearGradient id="lf3" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffb300" stop-opacity=".18"/>
+          <stop offset="100%" stop-color="#ffb300" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="30" x2="900" y2="30" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="90" x2="900" y2="90" stroke="#1e2d45" stroke-width="1"/>
+      <line x1="0" y1="150" x2="900" y2="150" stroke="#1e2d45" stroke-width="1"/>
+      <path d="M0,90 C45,88 85,82 112,75 C145,65 172,105 210,125 C248,145 280,118 330,95 C370,76 400,38 460,32 C510,26 545,58 590,78 C630,95 658,72 715,48 C762,28 820,25 900,22 L900,180 L0,180 Z" fill="url(#lf3)"/>
+      <path d="M0,90 C45,88 85,82 112,75 C145,65 172,105 210,125 C248,145 280,118 330,95 C370,76 400,38 460,32 C510,26 545,58 590,78 C630,95 658,72 715,48 C762,28 820,25 900,22" fill="none" stroke="url(#lg3)" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="56"  cy="88"  r="5" fill="#ffb300"/>
+      <circle cx="168" cy="72"  r="5" fill="#ff9f43"/>
+      <circle cx="225" cy="118" r="5" fill="#ff7043"/>
+      <circle cx="338" cy="92"  r="5" fill="#7bd450"/>
+      <circle cx="460" cy="32"  r="7" fill="#00e5a0" stroke="#080c14" stroke-width="2"/>
+      <circle cx="562" cy="76"  r="5" fill="#ffb300"/>
+      <circle cx="675" cy="52"  r="5" fill="#7c4dff"/>
+      <circle cx="788" cy="26"  r="5" fill="#b47dff"/>
+      <rect x="420" y="8" width="82" height="17" rx="4" fill="rgba(0,229,160,.15)" stroke="rgba(0,229,160,.35)" stroke-width="1"/>
+      <text x="461" y="20" text-anchor="middle" fill="#00e5a0" font-size="10" font-family="DM Sans" font-weight="600">✦ Child loves it</text>
+      <rect x="183" y="128" width="78" height="17" rx="4" fill="rgba(255,112,67,.15)" stroke="rgba(255,112,67,.35)" stroke-width="1"/>
+      <text x="222" y="140" text-anchor="middle" fill="#ff7043" font-size="10" font-family="DM Sans" font-weight="600">⚡ Setup pain</text>
+    </svg>
+
+    <div class="curve-labels" style="margin-top:10px">
+      <div class="cl">Awareness</div><div class="cl">Download</div>
+      <div class="cl">Onboarding</div><div class="cl">First Lesson</div>
+      <div class="cl">First Win</div><div class="cl">Daily Habit</div>
+      <div class="cl">Conversion</div><div class="cl">Long-term</div>
+    </div>
+  </div>
+
+  <!-- JOURNEY TABLE -->
+  <div class="section-label" id="tlabel">Detailed Journey — Child, 7–12 y.o.</div>
+  <div class="j-scroll fade">
+    <div class="j-outer">
+      <div class="row-labels">
+        <div class="rl" style="font-size:0"></div>
+        <div class="rl">Actions</div>
+        <div class="rl">Emotion</div>
+        <div class="rl" style="color:#ff8fab">Pain Points</div>
+        <div class="rl" style="color:var(--green)">Opportunities</div>
+      </div>
+      <div class="j-grid" id="jgrid"></div>
+    </div>
+  </div>
+
+  <!-- OPPORTUNITIES -->
+  <div class="section-label" id="olabel">Key Opportunities — Child Beginner</div>
+  <div class="opp-grid fade" id="ogrid"></div>
+
+  <div class="divider"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--dim);font-size:13px">ChessMate · User Journey Map · MVP 2026</div>
+    <div style="font-size:12px;color:var(--dim)">Next → Product Requirements Document</div>
+  </div>
+</div>
+
+<script>
+const SC = ['#7c4dff','#5c8fff','#00b4d8','#00e5a0','#7bd450','#ffb300','#ff7043','#b47dff'];
+
+const P = {
+  1:{
+    ctitle:'Child Beginner — Emotional State',
+    tlabel:'Detailed Journey — Child, 7–12 y.o.',
+    olabel:'Key Opportunities — Child Beginner',
+    stages:[
+      {num:'01',name:'Awareness',icon:'👀',
+       acts:['Sees TikTok / YouTube ad with the mascot','Friend shows app on phone','Found in App Store under "chess"','School classmate has a streak badge'],
+       emo:{e:'🤔',l:'Curious',p:60},
+       pains:["Doesn't know how it differs from Chess.com","Not sure chess is 'for them'"],
+       opps:['Clear hook: "Duolingo for chess"','Mascot in every ad creative','Invite link from school coach']},
+      {num:'02',name:'Download',icon:'📲',
+       acts:['Opens App Store','Reads screenshots','Checks rating & reviews','Taps Install','Opens app for the first time'],
+       emo:{e:'😊',l:'Optimistic',p:72},
+       pains:['Screenshots look complicated','No social proof from friends yet'],
+       opps:['App Store: video preview of gameplay','Rating 4.8+ from day one','"500+ students already playing"']},
+      {num:'03',name:'Onboarding',icon:'🚀',
+       acts:['Meets the mascot','Answers: beginner or experienced?','Picks a goal (beat dad / play friends)','Signs up via Apple / Google','Sees personal progress map'],
+       emo:{e:'😄',l:'Excited',p:80},
+       pains:['Long onboarding kills interest fast','Registration before first lesson = barrier'],
+       opps:['Max 3 questions → straight into lesson','Registration AFTER first lesson','Mascot explains moves with humor']},
+      {num:'04',name:'First Lesson',icon:'♟️',
+       acts:['Sees a chessboard for the first time','Mascot shows how a pawn moves','Makes first move with hints','Earns XP for correct move','Sees win animation + haptics'],
+       emo:{e:'🤩',l:'Delighted',p:85},
+       pains:['Too easy = boring','Too hard = feels dumb, quits'],
+       opps:['3–5 min first lesson max','Haptics + animation on every success','"Well done! +50 XP" — instant']},
+      {num:'05',name:'✦ First Win',icon:'🏆',
+       acts:['Finishes first mini-match vs bot','Sees "Checkmate!" celebration screen','Earns first badge / level','Wants to share the result','Starts second lesson immediately'],
+       emo:{e:'🥳',l:'Euphoria (AHA!)',p:98},
+       pains:['Bot too strong = demotivating','No one to share the moment with'],
+       opps:['Adaptive bot: guaranteed first win','Share card: "I won at chess! 🏆"','Invite a friend to play']},
+      {num:'06',name:'Daily Habit',icon:'🔄',
+       acts:['Receives push notification','Opens app to keep streak','Does 3–5 min puzzles','Checks leaderboard','Sees progress map update'],
+       emo:{e:'😌',l:'Routine / Satisfied',p:65},
+       pains:['Aggressive pushes → app deleted','Missed one day → streak lost, wants to quit'],
+       opps:['1 smart push/day at chosen time','Streak Freeze mechanic','Weekly digest from mascot']},
+      {num:'07',name:'Premium',icon:'⚡',
+       acts:['Energy runs out mid-lesson','Sees upsell "Unlimited for $10/mo"','Watches an ad after lesson','Chooses: ad or subscription','Or taps "Try a live coach"'],
+       emo:{e:'😤',l:'Frustrated → Decides',p:40},
+       pains:['Feels forced to pay','Unclear what Premium adds beyond unlimited'],
+       opps:['Upsell via achievement: "You\'re ready for a coach!"','7-day free Premium trial','Direct path to ChessMate Online School']},
+      {num:'08',name:'Long-term',icon:'🌟',
+       acts:['Plays in-app tournaments','Invites a friend (referral)','Moves to Online School','Buys a grandmaster course','Becomes an ambassador'],
+       emo:{e:'🔥',l:'Engaged / Loyal',p:90},
+       pains:['Not enough content for intermediate players','Wants PvP with real people, not bots'],
+       opps:['Creator marketplace: GM courses','PvP tournaments inside app','Referral program with bonuses']}
+    ],
+    opps:[
+      {l:'crit',t:'Registration after first lesson',d:"Don't put a barrier before first experience. Let them play immediately — ask for email only after they're hooked.",s:'Onboarding → First Lesson'},
+      {l:'crit',t:'Guaranteed first win',d:'The adaptive bot in the first match must let the user win. The AHA moment is the emotional hook that brings users back.',s:'First Match'},
+      {l:'high',t:'Smart notifications (not aggressive)',d:'1 notification/day at the user\'s chosen time. Zero pressure. Direct competitive edge over Duolingo Chess.',s:'Daily Habit'},
+      {l:'high',t:'Conversion to Online School',d:'When user hits a skill milestone — upsell not just Premium but a live ChessMate coach session. Unique to ChessMate.',s:'Premium Conversion'},
+      {l:'med',t:'Post-win share card',d:'"I won at chess!" — viral loop. Easy to build, drives organic awareness at zero cost.',s:'First Win'},
+      {l:'med',t:'Streak Freeze mechanic',d:'Protection from losing streak on a missed day. Broken streaks are a top reason people abandon apps.',s:'Daily Habit'}
+    ]
+  },
+  2:{
+    ctitle:'Adult Beginner — Emotional State',
+    tlabel:'Detailed Journey — Adult Beginner',
+    olabel:'Key Opportunities — Adult Beginner',
+    stages:[
+      {num:'01',name:'Awareness',icon:'👀',
+       acts:['Colleague mentions they\'re learning chess','Sees Duolingo Chess trend on Twitter/Reddit','Reads "chess is having a moment" article','Gets curious after chess content online'],
+       emo:{e:'🙂',l:'Mildly Curious',p:52},
+       pains:["Not sure they're 'smart enough' for chess","Chess feels like a serious hobby, not casual"],
+       opps:['"Anyone can learn chess in 10 min/day"','Position as brain training + stress relief','Adult-tone visuals — not childish']},
+      {num:'02',name:'Download',icon:'📲',
+       acts:['Searches "learn chess app" on App Store','Compares ChessMate vs Duolingo Chess','Reads 2–3 reviews for reassurance','Downloads — still a bit skeptical'],
+       emo:{e:'🤨',l:'Skeptical but intrigued',p:55},
+       pains:['Chess app UX often looks intimidating','Afraid they\'ll give up like last time'],
+       opps:['Screenshots clearly showing beginner mode','Review: "I knew nothing before this"','Clear "Start from zero" CTA']},
+      {num:'03',name:'Onboarding',icon:'🚀',
+       acts:['Sets goal: beat colleague / understand game','Selects "Complete beginner"','Skips registration — just wants to start','Sees structured path to 800 Elo'],
+       emo:{e:'😊',l:'Cautiously hopeful',p:68},
+       pains:['Onboarding quiz feels like a test','Too many choices upfront = paralysis'],
+       opps:['Show the full journey: "Lesson 1 of 120"','One goal question, nothing more','No account needed for first 3 lessons']},
+      {num:'04',name:'First Lesson',icon:'♟️',
+       acts:['Learns how pieces move one by one','Solves first puzzle — gets it wrong once','AI coach explains mistake in plain English','Finishes lesson in 6 min on commute'],
+       emo:{e:'😲',l:"Surprised it's fun",p:75},
+       pains:['Chess jargon in explanations = friction','Too many popups interrupt flow'],
+       opps:['AI explains mistakes in plain language — no jargon','Seamless flow: no popups, just inline hints','Session summary: "You learned 3 pieces today"']},
+      {num:'05',name:'✦ First Win',icon:'🏆',
+       acts:['Beats the bot for the first time','Genuinely surprised — "I won at chess?!"','Screenshots the result','Texts a friend about it','Opens second lesson same session'],
+       emo:{e:'😁',l:'Genuinely proud (AHA!)',p:96},
+       pains:['Win feels too easy — might doubt if real','No clear "next milestone" shown after win'],
+       opps:['"Your first checkmate" special celebration','Share card designed for adults (not kids)','Show Elo gained: "You\'re now 320 Elo"']},
+      {num:'06',name:'Daily Habit',icon:'🔄',
+       acts:['Opens app during commute or lunch','10 min daily puzzle session','Checks weekly progress stats','Competes with colleague on leaderboard'],
+       emo:{e:'😌',l:'Steady routine',p:68},
+       pains:['Busy schedule — skips days, loses streak','Progress feels invisible over weeks'],
+       opps:['Progress graph: Elo curve over time','"This week vs last week" stat card','Small private league with 10 coworkers']},
+      {num:'07',name:'Premium',icon:'⚡',
+       acts:['Hits paywall — energy limit reached','Considers: $10/mo vs what they get','Sees "Game analysis by AI coach" feature','Decides: worth it to keep improving'],
+       emo:{e:'🤔',l:'Evaluating value',p:55},
+       pains:['$10 feels unclear vs free Duolingo tier','Afraid of committing to something they\'ll abandon'],
+       opps:['Frame as gym membership: "Your chess trainer"','Annual plan: $7/mo if paid yearly','Show LTV: "Users at this level stay 18 months"']},
+      {num:'08',name:'Long-term',icon:'🌟',
+       acts:['Reaches 600–800 Elo milestone','Joins an online tournament','Considers 1:1 coaching','Tells 3 colleagues about the app'],
+       emo:{e:'🔥',l:'Committed, proud',p:88},
+       pains:['App content gets thin above 800 Elo','Wants human feedback, not just AI'],
+       opps:['Milestone unlock: "Coach session at 800 Elo"','Intermediate creator marketplace courses','"Challenge a friend" referral mechanic']}
+    ],
+    opps:[
+      {l:'crit',t:'AI explains mistakes in plain English',d:'No jargon. "You lost the knight because of a fork — here\'s what a fork is." The #1 thing adults want that no app delivers well.',s:'First Lesson → Long-term'},
+      {l:'crit',t:'Elo progress graph',d:'Adults want to see they\'re improving. A visual Elo curve over time is the single most motivating retention mechanic for this persona.',s:'Daily Habit'},
+      {l:'high',t:'No account before first 3 lessons',d:'Skeptical adults need to experience value before committing. Remove all friction at the start.',s:'Onboarding'},
+      {l:'high',t:'Adult-tone share card after first win',d:'"I just beat a chess bot for the first time" — designed for WhatsApp/Telegram sharing among adults.',s:'First Win'},
+      {l:'med',t:'Colleague leaderboard',d:'Small private leagues (5–10 people) massively increase retention. "Beat your coworker at chess" is a compelling daily hook.',s:'Daily Habit'},
+      {l:'med',t:'Annual plan pricing',d:'$7/mo annual vs $10/mo monthly. Adults respond to value framing — reduces conversion friction significantly.',s:'Premium Conversion'}
+    ]
+  },
+  3:{
+    ctitle:'School Parent — Emotional State',
+    tlabel:'Detailed Journey — School Parent',
+    olabel:'Key Opportunities — School Parent',
+    stages:[
+      {num:'01',name:'Awareness',icon:'👀',
+       acts:['Hears from another parent at school','Reads "best chess apps for kids" article','Chess teacher mentions ChessMate','Sees parent-targeted ad on Instagram'],
+       emo:{e:'🤔',l:'Researching options',p:58},
+       pains:['Too many apps — hard to evaluate quality','Worried about screen time / in-app purchases'],
+       opps:['"Recommended by chess coaches"','Parent testimonials front and center','Chess teacher referral program']},
+      {num:'02',name:'Research',icon:'🔍',
+       acts:['Reads App Store reviews carefully','Checks website for curriculum & safety info','Looks for "designed for kids" signals','Compares with Duolingo Chess'],
+       emo:{e:'😐',l:'Evaluative / cautious',p:55},
+       pains:['Unclear if app is safe for kids (ads, data)','No curriculum overview for parents'],
+       opps:['Parent dashboard preview in screenshots','COPPA compliance badge / "Safe for kids"','Curriculum overview parents can read']},
+      {num:'03',name:'Setup for Child',icon:'⚙️',
+       acts:['Downloads app, creates child account','Sets up parental controls','Configures daily time limit','Hands device to child'],
+       emo:{e:'😤',l:'Frustrated by complexity',p:38},
+       pains:['No dedicated "set up for my child" flow','Parental control setup is too technical','Takes 10+ min before child can play'],
+       opps:['Dedicated "Set up for my child" onboarding','2-step: age → goal → done','Parent gets weekly progress email automatically']},
+      {num:'04',name:"Child's First Lesson",icon:'♟️',
+       acts:['Watches child interact with the app','Child asks "what\'s a rook?" — parent engages','Sees child smile at mascot','Child finishes and asks for more'],
+       emo:{e:'😊',l:'Relieved, pleased',p:75},
+       pains:["Parent can't track what child actually learned",'Mascot tone might feel too young for 10–12'],
+       opps:['Parent notification: "Mia completed Lesson 1!"','Parent-facing lesson summary','Age-appropriate mascot tone (7–9 vs 10–12)']},
+      {num:'05',name:'✦ Child Loves It',icon:'🎉',
+       acts:['Child opens app without being told','Child tells parent about their chess progress','Parent sees Elo growing on dashboard','Considers online school for deeper learning'],
+       emo:{e:'😄',l:'Proud & relieved (AHA!)',p:94},
+       pains:["Hard to tell how good the child actually is",'No connection between app and real chess skill'],
+       opps:['Progress report with percentile ranking','"Your child is top 20% for their age group"','Coach assessment offer at skill milestone']},
+      {num:'06',name:'Progress Tracking',icon:'📊',
+       acts:['Checks parent dashboard weekly','Sees lesson streaks and completion rate','Gets monthly summary PDF','Compares progress to class average'],
+       emo:{e:'😌',l:'Confident, engaged',p:72},
+       pains:['Dashboard too minimal to understand progress','No link between app and live lesson preparation'],
+       opps:['Progress → coach handoff: share report with teacher','"This week your child learned: X, Y, Z"','Goal setting: "Reach 500 Elo by end of term"']},
+      {num:'07',name:'School Conversion',icon:'🎓',
+       acts:['Sees in-app: "Want a real coach?"','Reads about ChessMate Online School','Books a trial lesson (first class free)','Enrolls child in weekly sessions'],
+       emo:{e:'🙂',l:'Ready to invest',p:78},
+       pains:['Price jump from free app to $40/mo school','Unsure — what if child loses interest?'],
+       opps:['1 free trial lesson — no card required','Month-to-month, no lock-in','Bundle: app + school discount pricing']},
+      {num:'08',name:'Long-term',icon:'🌟',
+       acts:['Child competes in ChessMate tournament','Parent refers 2 other parents','Considers for second child','School uses ChessMate LMS class-wide'],
+       emo:{e:'🥰',l:'Advocate / proud parent',p:95},
+       pains:['No way to connect with other chess parents','Hard to track improvement against peers'],
+       opps:['Parent community: chess parents group','School/class mode: teacher assigns lessons','"Give a friend 1 free month" referral']}
+    ],
+    opps:[
+      {l:'crit',t:'"Set up for my child" dedicated flow',d:"Parents are busy. A 2-step setup (child's age → learning goal → done) removes the single biggest drop-off point for this persona.",s:'Setup'},
+      {l:'crit',t:'Weekly parent progress digest',d:'Automatic email every Sunday: "This week Mia completed 4 lessons and solved 12 puzzles." Parents share this — it\'s social proof.',s:'Progress Tracking'},
+      {l:'high',t:'Free trial lesson to Online School',d:'The parent → school conversion funnel is the highest LTV path. One free trial lesson with a real coach makes it easy to say yes.',s:'School Conversion'},
+      {l:'high',t:'Child Elo percentile ranking',d:'"Your child is in the top 25% for their age group." This is catnip for parents and triggers both sharing and long-term retention.',s:'Child Loves It'},
+      {l:'med',t:'App + school bundle pricing',d:'Discount when parent subscribes to both Premium AND Online School. Increases ARPU and reduces churn across both products.',s:'Conversion'},
+      {l:'med',t:'Parent referral mechanic',d:'"Give another parent 1 free month." School parents form tight networks — cheapest acquisition channel for this segment.',s:'Long-term'}
+    ]
+  }
+};
+
+let current = 0;
+
+function go(pid) {
+  if (current === pid) return;
+  current = pid;
+
+  // update persona card styles
+  [1,2,3].forEach(i => {
+    const c = document.getElementById('pc'+i);
+    c.className = 'p-card' + (i === pid ? ' active-'+i : '');
+  });
+
+  // swap curves
+  ['cv1','cv2','cv3'].forEach((id,i) => {
+    document.getElementById(id).className = 'curve-svg' + (i+1 === pid ? ' on' : '');
+  });
+
+  const d = P[pid];
+  document.getElementById('ctitle').textContent = d.ctitle;
+  document.getElementById('tlabel').textContent = d.tlabel;
+  document.getElementById('olabel').textContent = d.olabel;
+
+  // render journey grid
+  const grid = document.getElementById('jgrid');
+  grid.innerHTML = '';
+  d.stages.forEach((s, i) => {
+    const c = SC[i];
+    const col = document.createElement('div');
+    col.className = 's-col';
+    col.innerHTML =
+      '<div class="s-head">' +
+        '<div class="color-bar" style="background:'+c+'"></div>' +
+        '<div class="s-num">'+s.num+'</div>' +
+        '<div class="s-name">'+s.name+'</div>' +
+        '<div class="s-icon">'+s.icon+'</div>' +
+      '</div>' +
+      '<div class="s-row actions">' +
+        s.acts.map(a =>
+          '<div class="act"><div class="dot" style="background:'+c+'"></div><span>'+a+'</span></div>'
+        ).join('') +
+      '</div>' +
+      '<div class="s-row emotion">' +
+        '<div class="emo-wrap">' +
+          '<div class="emo-emoji">'+s.emo.e+'</div>' +
+          '<div class="emo-label" style="color:'+c+'">'+s.emo.l+'</div>' +
+          '<div class="emo-bar"><div class="emo-fill" style="width:'+s.emo.p+'%;background:'+c+'"></div></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="s-row pain">' +
+        s.pains.map(p => '<div class="chip chip-p">'+p+'</div>').join('') +
+      '</div>' +
+      '<div class="s-row opps">' +
+        s.opps.map(o => '<div class="chip chip-o">'+o+'</div>').join('') +
+      '</div>';
+    grid.appendChild(col);
+  });
+
+  // render opportunity cards
+  const og = document.getElementById('ogrid');
+  og.innerHTML = '';
+  const icons = {crit:'🎯 Critical for MVP', high:'↑ High Priority', med:'→ Medium Priority'};
+  const bars  = {crit:'#b47dff', high:'#00e5a0', med:'#ffb300'};
+  d.opps.forEach(o => {
+    const card = document.createElement('div');
+    card.className = 'opp-card';
+    card.innerHTML =
+      '<div class="opp-bar" style="background:'+bars[o.l]+'"></div>' +
+      '<div class="opp-pri '+o.l+'">'+icons[o.l]+'</div>' +
+      '<div class="opp-title">'+o.t+'</div>' +
+      '<div class="opp-desc">'+o.d+'</div>' +
+      '<div class="opp-stage">📍 '+o.s+'</div>';
+    og.appendChild(card);
+  });
+}
+
+// init
+go(1);
+</script>
+</body>
+</html>
