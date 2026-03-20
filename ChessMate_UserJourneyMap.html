@@ -60,7 +60,7 @@ body::before{content:'';position:fixed;inset:0;
 /* JOURNEY TABLE */
 .j-scroll{overflow-x:auto;padding-bottom:12px}
 .j-outer{display:grid;grid-template-columns:116px 1fr;min-width:1480px}
-.row-labels{display:grid;grid-template-rows:52px 190px 100px 130px 128px;padding-top:52px}
+.row-labels{display:grid;grid-template-rows:52px 200px 100px 140px 138px;padding-top:52px}
 .rl{display:flex;align-items:center;justify-content:flex-end;padding-right:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);border-right:1px solid var(--border);text-align:right;border-bottom:1px solid var(--border)}
 .rl:last-child{border-bottom:none}
 .j-grid{display:grid;grid-template-columns:repeat(8,1fr)}
@@ -68,19 +68,19 @@ body::before{content:'';position:fixed;inset:0;
 .s-col:last-child{border-right:none}
 
 /* stage header */
-.s-head{position:relative;padding:13px 14px;border-bottom:1px solid var(--border);min-height:52px}
+.s-head{position:relative;padding:13px 14px;border-bottom:1px solid var(--border);height:52px;overflow:hidden}
 .color-bar{position:absolute;bottom:0;left:0;right:0;height:2px}
 .s-num{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--dim);margin-bottom:3px}
 .s-name{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);line-height:1.25;padding-right:22px}
 .s-icon{position:absolute;right:11px;top:12px;font-size:15px;opacity:.55}
 
 /* body rows */
-.s-row{padding:11px 13px;border-bottom:1px solid var(--border);font-size:12px;line-height:1.5;color:var(--muted)}
+.s-row{padding:11px 13px;border-bottom:1px solid var(--border);font-size:12px;line-height:1.5;color:var(--muted);overflow:hidden}
 .s-row:last-child{border-bottom:none}
-.s-row.actions{min-height:190px}
-.s-row.emotion{min-height:100px;padding:8px 13px}
-.s-row.pain{min-height:130px;background:rgba(255,77,109,.04)}
-.s-row.opps{min-height:128px;background:rgba(0,229,160,.04)}
+.s-row.actions{height:200px}
+.s-row.emotion{height:100px;padding:8px 13px}
+.s-row.pain{height:140px;background:rgba(255,77,109,.04)}
+.s-row.opps{height:138px;background:rgba(0,229,160,.04)}
 .act{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
 .dot{width:5px;height:5px;border-radius:50%;margin-top:6px;flex-shrink:0}
 .emo-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:84px;gap:5px}
@@ -164,7 +164,7 @@ body::before{content:'';position:fixed;inset:0;
     <div class="curve-title" id="ctitle">Child Beginner — Emotional State</div>
     <div class="curve-sub">From first contact to long-term engagement — highs, friction points, and the AHA moment</div>
 
-    <svg id="cv1" class="curve-svg on" viewBox="0 0 900 180" preserveAspectRatio="none">
+    <svg id="cv1" class="curve-svg" viewBox="0 0 900 180" preserveAspectRatio="none">
       <defs>
         <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#7c4dff"/><stop offset="40%" stop-color="#00e5a0"/>
@@ -471,9 +471,9 @@ function go(pid) {
     c.className = 'p-card' + (i === pid ? ' active-'+i : '');
   });
 
-  // swap curves
+  // swap curves — use style.display directly; className toggling on inline SVGs is unreliable
   ['cv1','cv2','cv3'].forEach((id,i) => {
-    document.getElementById(id).className = 'curve-svg' + (i+1 === pid ? ' on' : '');
+    document.getElementById(id).style.display = (i+1 === pid ? 'block' : 'none');
   });
 
   const d = P[pid];
